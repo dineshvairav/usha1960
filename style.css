@@ -106,7 +106,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    backdrop-filter: blur(5px);
 }
 
 /* Gradient Background */
@@ -454,7 +453,8 @@ main {
     position: relative;
     width: 400px;
     height: 440px; 
-    background: transparent;  
+    opacity: 0.8; 
+    background-color: #1a1a1a;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 20px;
     backdrop-filter: blur(20px);
