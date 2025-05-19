@@ -495,7 +495,6 @@ footer .footer-content {
 
 footer .footer-section {
     margin-bottom: var(--spacing-sm);
-    flex-basis: 280px; /* Minimum base width for sections */
     flex-grow: 1;
 }
 
