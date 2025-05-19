@@ -52,6 +52,7 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    /* object-fit: cover; */
     overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
@@ -274,39 +275,58 @@ main {
 
 
 /* Form Popup Styles */
+
+
 .wrapper.form-container {
-    position: fixed; /* Use fixed for viewport centering */
+    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0); /* Initial state for animation */
-    width: clamp(300px, 90vw, 400px); /* Responsive width */
-    max-height: 90vh; /* Prevent overflow on small screens */
-    overflow-y: auto; /* Allow scrolling within form if content is too long */
+    transform: translate(-50%, -50%) scale(0); /* Initial: hidden and scaled down */
+    opacity: 0; /* Initial: transparent */
+    visibility: hidden; /* Initial: not visible and not interactive */
+
+    width: clamp(300px, 90vw, 400px);
+    height: auto; /* Let content define height */
+    min-height: 200px; /* Ensure it has some minimum height to be visible even if content is small initially */
+    max-height: 90vh;
+    overflow: hidden; /* Hide overflow */
     background-color: var(--bg-color-form);
     border: 2px solid var(--border-color-form);
     border-radius: var(--border-radius-card);
-    backdrop-filter: blur(10px); /* Reduced blur */
+    backdrop-filter: blur(10px);
     box-shadow: var(--shadow-dark);
-    display: flex; /* Kept for consistency, though only one form card visible at a time */
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
-    z-index: 10000; /* Ensure it's on top */
-    opacity: 0; /* Start hidden */
+    display: flex; /* Using flex to help manage the inner form card */
+    flex-direction: column; /* Stack children vertically */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0s linear 0.3s; /* Delay visibility change */
+    z-index: 10000;
+    /* Added z-index to ensure it appears above other content */
+   }
+
+.wrapper .form-card.login {
+    transition: transform 0.18s ease;
+    transform: translateX(0);
+    height: 440px;
+}
+.wrapper.active .form-card.login {
+    transition: none;
+    transform: translateX(-400px);
+    height: 520px;
+}
+.wrapper.active .form-card.register {
+    transform: translateX(0);
+    transition: none;
+    transition: transform 0.18s ease;
+}
+.wrapper .form-card.register {
+   position: absolute;
+   transform: translateX(400px);
 }
 
-.wrapper.active-popup {
-    transform: translate(-50%, -50%) scale(1); /* Animate to visible */
+.wrapper.form-container.active-popup {
+    transform: translate(-50%, -50%) scale(1);
     opacity: 1;
-}
-/* Height adjustment for register form if it's taller */
-.wrapper.active .form-card.register,
-.wrapper.active-popup.register-active .form-card.register { /* For when only register is shown */
-    /* height: auto;  Let content define height */
-}
-.wrapper.active .form-card.login,
-.wrapper.active-popup.login-active .form-card.login {
-    /* height: auto; */
+    visibility: visible; /* Make it visible and interactive */
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.3s ease-out, visibility 0s linear 0s;
 }
 
 
@@ -322,6 +342,9 @@ main {
     border-bottom-left-radius: var(--border-radius-card);
     z-index: 1;
     line-height: 1; /* Better icon centering */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .icon-close i { display: block; } /* Ensure FontAwesome icon displays correctly */
 
@@ -329,23 +352,9 @@ main {
 .wrapper .form-card {
    width: 100%;
    padding: var(--spacing-lg);
+   padding-top: calc(var(--spacing-lg) + 40px); 
+   flex-grow: 1;  
 }
-
-.wrapper .form-card.login {
-    /* JS will handle visibility, no need for transform here if only one is shown */
-}
-.wrapper.active .form-card.login {
-    /* This was for switching between login/register in the same modal space */
-    /* If they are separate popups, this isn't needed */
-}
-.wrapper .form-card.register {
-   /* position: absolute; */ /* Only if overlaying */
-   /* transform: translateX(100%); */ /* Start off-screen if sliding */
-}
-/* If using a single wrapper and switching forms inside: */
-.form-card { display: none; } /* Hide all by default */
-.form-card.active-form { display: block; } /* Show active form */
-
 
 .wrapper .form-card h2 {
     font-size: clamp(1.5rem, 5vw, 2rem);
