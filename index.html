@@ -35,8 +35,14 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-            <button data-aos="fade-down" data-aos-duration="1500" class="btn-sign">Sign In</button>
+            <div id="auth-controls">
+                <button data-aos="fade-down" data-aos-duration="1500" class="btn-sign" id="signInBtnHeader">Sign
+                    In</button>
+                <span id="userInfo" class="hidden" style="color: white; margin-right: 10px;"></span>
+                <button class="btn-sign hidden" id="logoutBtnHeader" style="background-color: #dc3545;">Logout</button>
+            </div>
         </header>
+
         <main>
             <div data-aos="fade-up" data-aos-duration="1500" class="content">
                 <div data-aos="zoom-in-up" data-aos-duration="1500" class="tag-box">
@@ -53,65 +59,62 @@
                 </div>
             </div>
         </main>
-        
-        <div class="wrapper form-container">
-                <span class="icon-close"><i class="fas fa-times"></i></span>
-                <div class="form-card login">
-                    <h2>Login</h2>
-                    <form action="#">
-                        <div class="input-box">
-                            <span class="icon"><i class="fas fa-envelope"></i></span>
-                            <input type="email" placeholder="Email" required>
 
-                        </div>
-                        <div class="input-box">
-                            <span class="icon"><i class="fas fa-lock"></i></span>
-                            <input type="password" placeholder="Password" required>
-                        </div>
-                        <div class="remember-password">
-                            <input type="checkbox">
-                            <label>Remember me</label>
-                            <a href="#">Forgot Password?</a>
-                        </div>
-                        <button type="submit" class="btn-submit">Login</button>
-                        <div class="login-register">
-                            <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
-                        </div>
-                    </form>
-                </div>
-                <div class="form-card register">
-                    <h2>Register</h2>
-                    <form action="#">
-                        <div class="input-box">
-                            <span class="icon"><i class="fas fa-user"></i></span>
-                            <input type="text" placeholder="Username" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="icon"><i class="fas fa-envelope"></i></span>
-                            <input type="email" placeholder="Email" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="icon"><i class="fas fa-lock"></i></span>
-                            <input type="password" placeholder="Password" required>
-                        </div>
-                        <div class="remember-password">
-                            <input type="checkbox">
-                            <label>
-                                I agree to the Terms and Conditions
-                            </label>
-                        </div>
-                        <button type="submit" class="btn-submit">Register</button>
-                        <div class="login-register">
-                            <p>Already have an account? <a href="#" class="login-link">Login</a></p>
-                        </div>
-                    </form>
-                </div>
+        <div class="wrapper form-container">
+            <span class="icon-close"><i class="fas fa-times"></i></span>
+            <div class="form-card login active-form">
+                <h2>Login</h2>
+                <form id="loginFormSupabase">
+                    <div class="input-box">
+                        <span class="icon"><i class="fas fa-envelope"></i></span>
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                    </div>
+                    <div class="remember-password">
+                        <input type="checkbox" id="loginRememberMe">
+                        <label for="loginRememberMe">Remember me</label>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn-submit">Login</button>
+                    <div class="login-register">
+                        <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
+                    </div>
+                </form>
             </div>
+            <div class="form-card register">
+                <h2>Register</h2>
+                <form id="registerFormSupabase">
+                    <div class="input-box">
+                        <span class="icon"><i class="fas fa-user"></i></span>
+                        <input type="text" id="registerUsername" placeholder="Username (optional)">
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class="fas fa-envelope"></i></span>
+                        <input type="email" id="registerEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="registerPassword" placeholder="Password (min. 6 characters)"
+                            required>
+                    </div>
+                    <div class="remember-password">
+                        <input type="checkbox" id="registerAgreeTerms" required>
+                        <label for="registerAgreeTerms">
+                            I agree to the Terms and Conditions
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit">Register</button>
+                    <div class="login-register">
+                        <p>Already have an account? <a href="#" class="login-link">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+
     <footer class="footer">
         <div data-aos="fade-up" data-aos-duration="1500" class="footer-logo">
             <h1>ushªOªpp</h1>
@@ -144,7 +147,23 @@
             </p>
         </div>
     </footer>
+
+    <div id="globalMessage"
+        style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #333; color: white; padding: 10px 20px; border-radius: 5px; z-index: 10001; display: none; text-align: center;">
+    </div>
+
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <footer class="footer">
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script type="module" src="auth.js"></script>
+
     <script type="module" src="./assets/script.js"></script>
 </body>
 
