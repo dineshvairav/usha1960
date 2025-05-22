@@ -1,6 +1,4 @@
-// Import the Supabase client instance from auth.js
-// Ensure the path to auth.js is correct relative to script.js
-// If auth.js is in the root and script.js is in assets/, the path might be '../auth.js'
+// This file is responsible for initializing the Supabase client.
 import { supabase } from './auth.js'; // Adjust path if auth.js is not in the parent directory
 
 document.addEventListener('DOMContentLoaded', function () {
