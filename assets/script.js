@@ -41,7 +41,17 @@ document.addEventListener('DOMContentLoaded', function () {
             if (loginFormCard) loginFormCard.classList.remove('active-form');
         }
     }
+    const loginLink = document.querySelector('.login-link');
+    const registerLink = document.querySelector('.register-link');
 
+    registerLink.addEventListener('click', () => {
+        wrapper.classList.add('active');
+    });
+
+
+    loginLink.addEventListener('click', () => {
+        wrapper.classList.remove('active');
+    });
     function closePopup() {
         if (!wrapper) return;
         wrapper.classList.remove('active-popup');
@@ -121,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     showGlobalMessage('You must agree to the terms and conditions.', 'error');
                     return;
                 }
-                 if (password.length < 6) {
+                if (password.length < 6) {
                     showGlobalMessage('Password must be at least 6 characters.', 'error');
                     return;
                 }
@@ -140,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     showGlobalMessage(`Registration failed: ${error.message}`, 'error');
                     console.error('Registration error:', error);
                 } else {
-                     if (data.session === null && data.user) {
+                    if (data.session === null && data.user) {
                         // User created, email confirmation likely needed
                         showGlobalMessage('Registration successful! Please check your email to confirm your account.', 'success', 5000);
                     } else if (data.session && data.user) {
